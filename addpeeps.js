@@ -1,14 +1,16 @@
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const fs = require('fs').promises; // For file operations
 const path = require('path'); // For handling file paths
-
+const qrcode = require('qrcode-terminal');
 const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: { 
         headless: true,
     }
 });
-
+client.on('qr', qr => {
+    qrcode.generate(qr, {small: true});
+});
 // The authorized number that can add members (include country code)
 const AUTHORIZED_NUMBER = ['120363317523691624@g.us','120363335216123488@g.us','120363285085188422@g.us'];
 
